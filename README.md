@@ -1,23 +1,23 @@
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/:vendor_slug/:package_slug.svg?style=flat-square)](https://packagist.org/packages/:vendor_slug/:package_slug)
-[![Tests](https://github.com/:vendor_slug/:package_slug/actions/workflows/run-tests.yml/badge.svg?branch=main)](https://github.com/:vendor_slug/:package_slug/actions/workflows/run-tests.yml)
-[![Total Downloads](https://img.shields.io/packagist/dt/:vendor_slug/:package_slug.svg?style=flat-square)](https://packagist.org/packages/:vendor_slug/:package_slug)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/samirsabiee/laravel-hotfix.svg?style=flat-square)](https://packagist.org/packages/samirsabiee/laravel-hotfix)
+[![Tests](https://github.com/samirsabiee/laravel-hotfix/actions/workflows/run-tests.yml/badge.svg?branch=main)](https://github.com/samirsabiee/laravel-hotfix/actions/workflows/run-tests.yml)
+[![Total Downloads](https://img.shields.io/packagist/dt/samirsabiee/laravel-hotfix.svg?style=flat-square)](https://packagist.org/packages/samirsabiee/laravel-hotfix)
 <!--delete-->
 ---
-:package_description
+This is my package laravel-hotfix
 
 ## Installation
 
 You can install the package via composer:
 
 ```bash
-composer require :vendor_slug/:package_slug
+composer require samirsabiee/laravel-hotfix
 ```
 
 ## Usage
 
 ```php
-$skeleton = new VendorName\Skeleton();
-echo $skeleton->echoPhrase('Hello, VendorName!');
+$skeleton = new SamirSabiee\Hotfix();
+echo $skeleton->echoPhrase('Hello, SamirSabiee!');
 ```
 
 ## Testing
@@ -36,7 +36,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [:author_name](https://github.com/:author_username)
+- [Samir Sabiee](https://github.com/samirsabiee)
 - [All Contributors](../../contributors)
 
 ## License

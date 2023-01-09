@@ -1,16 +1,16 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "samirsabiee/laravel-hotfix",
+    "description": "This is my package laravel-hotfix",
     "keywords": [
-        ":vendor_name",
-        ":package_slug"
+        "samirsabiee",
+        "laravel-hotfix"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/samirsabiee/laravel-hotfix",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Samir Sabiee",
+            "email": "samirsabiee@gmail.com",
             "role": "Developer"
         }
     ],
@@ -24,12 +24,12 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src"
+            "SamirSabiee\\Hotfix\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "SamirSabiee\\Hotfix\\Tests\\": "tests"
         }
     },
     "scripts": {
