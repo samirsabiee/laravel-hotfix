@@ -9,11 +9,20 @@ class StubManager
     protected string $name;
 
     protected string $path = 'app/Hotfixes';
+
     protected array $config;
 
     public function __construct()
     {
         $this->config = config('hotfix');
+    }
+
+    /**
+     * @return string
+     */
+    public function getPath(): string
+    {
+        return $this->path;
     }
 
     /**
@@ -35,34 +44,9 @@ class StubManager
     }
 
     /**
-     * @return string
-     */
-    private function getPath(): string
-    {
-        return $this->path;
-    }
-
-    /**
-     * @param string|null $path
-     * @return StubManager
      * @throws Exception
      */
-    public function setPath(string $path = null): static
-    {
-        if (is_null($path)) {
-            return $this;
-        }
-        if(str_contains('\\', $path)){
-            throw new Exception('The address must not contain \ character Use / instead');
-        }
-        $this->path = $path;
-        return $this;
-    }
-
-    /**
-     * @throws Exception
-     */
-    public function create(bool $forceOverwrite)
+    public function create()
     {
         $stubPath = __DIR__ . '/Stubs/Hotfix.stub';
 
@@ -71,29 +55,30 @@ class StubManager
             throw new Exception ('Could not find stub in path ' . $stubPath);
         }
 
-        if (!file_exists(base_path($this->getPath()))) {
-            mkdir($this->getPath(), 0755, true);
-        }
-
         $outputFile = $this->getPath() . '/' . $this->getName() . '.php';
 
-        if ($forceOverwrite === false && file_exists($outputFile)) {
-            throw new Exception($outputFile . ' already exists, consider trying with "--force" to overwrite.');
+        if (file_exists($outputFile)) {
+            throw new Exception($outputFile . ' already exists');
         }
 
         $stubContent = file_get_contents($stubPath);
 
-        $namespace = [];
-
-        foreach (explode('/', $this->getPath()) as $dir){
+        $namespace = ['App', 'Hotfixes'];
+        $dirs = explode('/', $this->getName());
+        $className = array_pop($dirs);
+        foreach ($dirs as $dir) {
             $namespace[] = ucfirst($dir);
         }
 
-        $namespace = implode('/', $namespace);
+        $namespace = implode('\\', $namespace);
 
         $newContent = str_replace('{NAMESPACE}', $namespace, $stubContent);
 
-        $newContent = str_replace('{CLASS_NAME}', $this->getName(), $newContent);
+        $newContent = str_replace('{CLASS_NAME}', $className, $newContent);
+
+        if (!file_exists(base_path($this->getPath() . '/' . implode('/', $dirs)))) {
+            mkdir(base_path($this->getPath() . '/' . implode('/', $dirs)), 0755, true);
+        }
 
         if (!file_put_contents($outputFile, $newContent)) {
             throw new Exception('Could not write to ' . $outputFile);

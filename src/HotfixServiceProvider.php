@@ -9,6 +9,7 @@ class HotfixServiceProvider extends ServiceProvider
 
     public function register()
     {
+        $this->mergeConfigFrom(__DIR__.'/../config/hotfix.php', 'hotfix.php');
     }
 
     public function boot()

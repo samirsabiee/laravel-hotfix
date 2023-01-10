@@ -8,11 +8,7 @@ use SamirSabiee\Hotfix\StubManager;
 
 class HotfixMakeCommand extends Command
 {
-    public $signature = 'hotfix:make
-                        { name : Hotfix class name}
-                        { path? : Where to be created? default path is app/Hotfixes}
-                        { --f|force? : Overwrite existing files without confirmation}
-                        ';
+    public $signature = 'hotfix:make { name : Hotfix class name}';
 
     public $description = 'Make Hotfix Stub File';
 
@@ -20,9 +16,7 @@ class HotfixMakeCommand extends Command
     {
         try {
             $outputFile = (new StubManager())
-                ->setName($this->argument('name'))
-                ->setPath($this->argument('path'))
-                ->create($this->option('force'));
+                ->setName($this->argument('name'))->create();
             $this->info('File Created At ' . $outputFile);
         } catch (Exception $e) {
             $this->error($e->getMessage());
