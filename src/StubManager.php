@@ -93,7 +93,7 @@ class StubManager
 
         $newContent = str_replace('{NAMESPACE}', $namespace, $stubContent);
 
-        $newContent = str_replace('{CLASS_NAME}', $this->getName(), $stubContent);
+        $newContent = str_replace('{CLASS_NAME}', $this->getName(), $newContent);
 
         if (!file_put_contents($outputFile, $newContent)) {
             throw new Exception('Could not write to ' . $outputFile);
