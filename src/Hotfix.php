@@ -2,6 +2,6 @@
 
 namespace SamirSabiee\Hotfix;
 
-class HotfixClass
+abstract class Hotfix
 {
 }

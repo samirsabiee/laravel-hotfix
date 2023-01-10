@@ -1,0 +1,12 @@
+<?php
+{NAMESPACE}
+use SamirSabiee\Hotfix\Hotfix;
+
+class {CLASS_NAME} extends Hotfix
+{
+
+    public function handle()
+    {
+
+    }
+}
