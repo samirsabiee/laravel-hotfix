@@ -16,6 +16,7 @@ class HotfixServiceProvider extends ServiceProvider
     {
         $this->registerCommands();
         $this->registerPublishing();
+        $this->loadMigrationsFrom(__DIR__.'/../database/2023_01_11_1673400407_create_hotfixes_table.php');
     }
 
     protected function registerPublishing()
