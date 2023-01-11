@@ -39,7 +39,7 @@ class StubManager
      */
     public function setName(string $name): static
     {
-        $this->name = $name;
+        $this->name = 'Hotfix_' . now()->timestamp . '_' . $name;
         return $this;
     }
 
