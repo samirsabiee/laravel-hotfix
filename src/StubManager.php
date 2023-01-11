@@ -67,7 +67,7 @@ class StubManager
         $dirs = explode('/', $this->getName());
         $className = array_pop($dirs);
         foreach ($dirs as $dir) {
-            $namespace[] = ucfirst($dir);
+            $namespace[] = $dir;
         }
 
         $namespace = implode('\\', $namespace);

@@ -15,7 +15,8 @@ class HotfixCommand extends Command
     public function handle()
     {
         try {
-            //todo
+            $files = glob(app_path('Hotfixes/' . config('hotfix.path')));
+            dd($files);
         } catch (Exception $e) {
             $this->error($e->getMessage());
         }

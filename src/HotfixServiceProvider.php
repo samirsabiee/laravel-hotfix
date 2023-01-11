@@ -32,7 +32,12 @@ class HotfixServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
+                Commands\HotfixCommand::class,
+                Commands\HotfixLogsCommand::class,
                 Commands\HotfixMakeCommand::class,
+                Commands\HotfixRetryCommand::class,
+                Commands\HotfixRunCommand::class,
+                Commands\HotfixStatusCommand::class,
             ]);
         }
     }

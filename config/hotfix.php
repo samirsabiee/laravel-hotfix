@@ -3,7 +3,7 @@ use Illuminate\Support\Facades\Facade;
 
 return [
 
-    'path' => 'app/Hotfixes/*.php',
+    'path' => '*.php',
 
     'database' => [
 
