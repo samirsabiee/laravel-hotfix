@@ -55,7 +55,7 @@ class StubManager
             throw new Exception ('Could not find stub in path ' . $stubPath);
         }
 
-        $outputFile = $this->getPath() . '/' . now()->timestamp . '_' . $this->getName() . '.php';
+        $outputFile = $this->getPath() . '/' . now()->timestamp . '_' . strtolower($this->getName()) . '.php';
 
         if (file_exists($outputFile)) {
             throw new Exception($outputFile . ' already exists');
