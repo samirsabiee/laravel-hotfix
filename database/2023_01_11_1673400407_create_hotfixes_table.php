@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::connection(config('hotfix.database.connection'))->create(config('hotfix.database.table'), function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('error');
+            $table->json('error')->nullable();
             $table->timestamps();
         });
     }
