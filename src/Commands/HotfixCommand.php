@@ -17,6 +17,11 @@ class HotfixCommand extends Command
     {
         try {
             $files = glob(app_path('Hotfixes/' . config('hotfix.path')));
+
+            if(count($files) == 0) {
+                $this->line('No hotfix found check your config path or be sure you have hotfix in app/Hotfixes folder and it\'s subFolders');
+            }
+
             foreach (array_slice($files, $this->argument('last') * -1) as $file) {
                 /** @var Hotfix $hotfix */
                 $hotfix = resolve("App\\Hotfixes" . str_replace('/', '\\', last(array_reverse(explode('.php', last(explode('app/Hotfixes', $file)))))));
