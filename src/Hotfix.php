@@ -27,9 +27,11 @@ abstract class Hotfix implements IHotfix
                 $this->handle();
             }
             $this->hotfixRepository->updateOrCreate(static::class);
-        } catch (\Error | \Exception $e) {
+            echo "\033[32m \xE2\x9C\x94 " . static::class . " \033 \r\n";
+        } catch (\Error|\Exception $e) {
             DB::rollBack();
             $this->hotfixRepository->updateOrCreate(static::class, $e);
+            echo "\033[31m \xE2\x9D\x8C " . static::class . " \033 \r\n";
         }
     }
 
