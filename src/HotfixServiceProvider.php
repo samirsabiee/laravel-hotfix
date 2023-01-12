@@ -35,6 +35,7 @@ class HotfixServiceProvider extends ServiceProvider
                 Commands\HotfixCommand::class,
                 Commands\HotfixLogsCommand::class,
                 Commands\HotfixMakeCommand::class,
+                Commands\HotfixPruneCommand::class,
                 Commands\HotfixRetryCommand::class,
                 Commands\HotfixRunCommand::class,
                 Commands\HotfixStatusCommand::class,
