@@ -3,7 +3,6 @@
 namespace SamirSabiee\Hotfix;
 
 use Illuminate\Support\Facades\DB;
-use PhpParser\Error;
 use SamirSabiee\Hotfix\Models\Hotfix as HotfixModel;
 
 abstract class Hotfix implements IHotfix
@@ -31,13 +30,16 @@ abstract class Hotfix implements IHotfix
                 'name' => static::class,
                 'error' => null
             ]);
-        } catch (\ParseError | Error | \Exception $e) {
+        } catch (\Error $e) {
             DB::rollBack();
             HotfixModel::query()->updateOrCreate([
                 'name' => static::class
             ], [
                 'name' => static::class,
-                'error' => $e
+                'error' =>  json_encode([
+                    'message' => $e->getMessage(),
+                    'stack' => $e->getTrace()
+                ])
             ]);
         }
     }

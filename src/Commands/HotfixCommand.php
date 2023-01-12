@@ -3,7 +3,6 @@
 namespace SamirSabiee\Hotfix\Commands;
 
 use Illuminate\Console\Command;
-use PhpParser\Error;
 use SamirSabiee\Hotfix\Hotfix;
 use SamirSabiee\Hotfix\Models\Hotfix as HotfixModel;
 use SamirSabiee\Hotfix\StubManager;
@@ -29,7 +28,7 @@ class HotfixCommand extends Command
                 $hotfix = resolve($file);
                 $hotfix->run();
             }
-        } catch (\ParseError|Error|\Exception $e) {
+        } catch (\Error $e) {
             HotfixModel::query()->updateOrCreate([
                 'name' => $file
             ], [
