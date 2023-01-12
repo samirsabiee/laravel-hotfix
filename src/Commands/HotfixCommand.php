@@ -24,15 +24,16 @@ class HotfixCommand extends Command
             }
 
             foreach (array_slice($files, $this->argument('last') * -1) as $file) {
+                $file = "App\\Hotfixes" . str_replace('/', '\\', last(array_reverse(explode('.php', last(explode('app/Hotfixes', $file))))));
                 /** @var Hotfix $hotfix */
-                $hotfix = resolve("App\\Hotfixes" . str_replace('/', '\\', last(array_reverse(explode('.php', last(explode('app/Hotfixes', $file)))))));
+                $hotfix = resolve($file);
                 $hotfix->run();
             }
         } catch (\ParseError|Error|\Exception $e) {
             HotfixModel::query()->updateOrCreate([
-                'name' => static::class
+                'name' => $file
             ], [
-                'name' => static::class,
+                'name' => $file,
                 'error' => json_encode([
                     'message' => $e->getMessage(),
                     'stack' => $e->getTrace()
