@@ -37,4 +37,9 @@ class HotfixRepository
         return $this->model->query()->orderByDesc('id')->limit($count)->get(['id', 'name'])->toArray();
     }
 
+    public function findById(string $id): array
+    {
+        return $this->model->query()->where('id', $id)->get(['id', 'name', 'error'])->toArray();
+    }
+
 }
