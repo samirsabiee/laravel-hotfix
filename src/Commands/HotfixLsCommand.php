@@ -7,7 +7,7 @@ use Illuminate\Console\Command;
 use SamirSabiee\Hotfix\HotfixRepository;
 use SamirSabiee\Hotfix\StubManager;
 
-class HotfixLsCommand extends Command
+class HotfixLsCommand extends HotfixBaseCommand
 {
     public $signature = 'hotfix:ls { count? : the nth last hotfix}';
 
@@ -17,7 +17,7 @@ class HotfixLsCommand extends Command
     {
         try {
             $count = $this->argument('count');
-            $this->table(['ID', 'NAME'], resolve(HotfixRepository::class)->ls(is_null($count) ? 10 : $count));
+            $this->table(['ID', 'NAME'], $this->hotfixRepository->ls(is_null($count) ? 10 : $count));
         } catch (Exception $e) {
             $this->error($e->getMessage());
         }

@@ -6,7 +6,7 @@ use Exception;
 use Illuminate\Console\Command;
 use SamirSabiee\Hotfix\StubManager;
 
-class HotfixMakeCommand extends Command
+class HotfixMakeCommand extends HotfixBaseCommand
 {
     public $signature = 'hotfix:make { name : Hotfix class name}';
 

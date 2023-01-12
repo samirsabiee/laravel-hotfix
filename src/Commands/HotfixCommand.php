@@ -2,13 +2,12 @@
 
 namespace SamirSabiee\Hotfix\Commands;
 
-use Illuminate\Console\Command;
 use SamirSabiee\Hotfix\Hotfix;
 use SamirSabiee\Hotfix\HotfixRepository;
 use SamirSabiee\Hotfix\Models\Hotfix as HotfixModel;
 use SamirSabiee\Hotfix\StubManager;
 
-class HotfixCommand extends Command
+class HotfixCommand extends HotfixBaseCommand
 {
     public $signature = 'hotfix { last : execute nth last hotfix}';
 
@@ -20,8 +19,7 @@ class HotfixCommand extends Command
             $this->error('Invalid Options');
             return;
         }
-        /** @var HotfixRepository $hotfixRepository */
-        $hotfixRepository = resolve(HotfixRepository::class);
+
         $files = glob(app_path('Hotfixes/' . config('hotfix.path')));
 
         if (count($files) == 0) {
@@ -37,7 +35,7 @@ class HotfixCommand extends Command
             return "App\\Hotfixes" . str_replace('/', '\\', last(array_reverse(explode('.php', last(explode('app/Hotfixes', $file))))));
         })->toArray();
 
-        $files = $hotfixRepository->getNotRunedHotfixes($files);
+        $files = $this->hotfixRepository->getNotExecutedHotfixes($files);
 
         if (count($files) == 0) {
             echo "\033[34m" . 'The last ' . $this->argument('last') . ' files have been executed. There is nothing to execute' . " \033 \r\n";
@@ -51,7 +49,7 @@ class HotfixCommand extends Command
                 $hotfix->run();
             } catch (\Error|\Exception $e) {
                 echo "\033[31m \xE2\x9D\x8C " . $file . " \033 \r\n";
-                $hotfixRepository->updateOrCreate($file, $e);
+                $this->hotfixRepository->updateOrCreate($file, $e);
             }
         }
     }

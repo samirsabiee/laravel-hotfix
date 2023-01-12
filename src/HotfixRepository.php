@@ -26,7 +26,7 @@ class HotfixRepository
         ]);
     }
 
-    public function getNotRunedHotfixes(array $hotfixes)
+    public function getNotExecutedHotfixes(array $hotfixes): array
     {
         $dbHotfixes = $this->model->query()->whereIn('name', $hotfixes)->pluck('name')->toArray();
         return array_diff($hotfixes, $dbHotfixes);
@@ -37,14 +37,21 @@ class HotfixRepository
         return $this->model->query()->orderByDesc('id')->limit($count)->get(['id', 'name'])->toArray();
     }
 
-    public function findById(string $id): array
+    public function findById(string $id, $columns = ['id', 'name', 'error']): array
     {
-        return $this->model->query()->where('id', $id)->get(['id', 'name', 'error'])->toArray();
+        return $this->model->query()->where('id', $id)->get($columns)->toArray();
     }
 
     public function prune(array $hotfixes): void
     {
         $this->model->query()->whereNotIn('name', $hotfixes)->delete();
+    }
+
+    public function getExecutedWithError(array $hotfixes): array
+    {
+        return $this->model->query()->whereIn('name', $hotfixes)
+            ->whereNotNull('error')
+            ->pluck('name')->toArray();
     }
 
 }

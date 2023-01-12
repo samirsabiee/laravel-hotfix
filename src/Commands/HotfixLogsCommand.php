@@ -7,7 +7,7 @@ use Illuminate\Console\Command;
 use SamirSabiee\Hotfix\HotfixRepository;
 use SamirSabiee\Hotfix\StubManager;
 
-class HotfixLogsCommand extends Command
+class HotfixLogsCommand extends HotfixBaseCommand
 {
     public $signature = 'hotfix:logs { id : Hotfix ID}';
 
@@ -16,7 +16,7 @@ class HotfixLogsCommand extends Command
     public function handle()
     {
         try {
-            $this->table(['ID', 'NAME', 'ERROR'], resolve(HotfixRepository::class)
+            $this->table(['ID', 'NAME', 'ERROR'], $this->hotfixRepository
                 ->findById($this->argument('id')));
         } catch (Exception $e) {
             $this->error($e->getMessage());

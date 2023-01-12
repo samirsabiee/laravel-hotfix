@@ -6,7 +6,7 @@ use Exception;
 use Illuminate\Console\Command;
 use SamirSabiee\Hotfix\StubManager;
 
-class HotfixRunCommand extends Command
+class HotfixRunCommand extends HotfixBaseCommand
 {
     public $signature = 'hotfix:run { name : Hotfix class name}';
 
