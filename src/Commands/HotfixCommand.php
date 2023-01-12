@@ -16,7 +16,7 @@ class HotfixCommand extends Command
 
     public function handle()
     {
-        if(!is_numeric($this->argument('last')) && $this->argument('last') != 'all'){
+        if (!is_numeric($this->argument('last')) && $this->argument('last') != 'all') {
             $this->error('Invalid Options');
             return;
         }
@@ -29,7 +29,11 @@ class HotfixCommand extends Command
             return;
         }
 
-        $files = collect(array_slice($files, $this->argument('last') * -1))->map(function ($file) {
+        if ($this->argument('last') != 'all') {
+            $files = array_slice($files, $this->argument('last') * -1);
+        }
+
+        $files = collect($files)->map(function ($file) {
             return "App\\Hotfixes" . str_replace('/', '\\', last(array_reverse(explode('.php', last(explode('app/Hotfixes', $file))))));
         })->toArray();
 
