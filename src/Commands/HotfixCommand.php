@@ -33,7 +33,7 @@ class HotfixCommand extends Command
                 'name' => static::class
             ], [
                 'name' => static::class,
-                'error' => $e
+                'error' => $e->getTrace()
             ]);
         }
     }
