@@ -32,4 +32,9 @@ class HotfixRepository
         return array_diff($hotfixes, $dbHotfixes);
     }
 
+    public function ls(int $count = 10): array
+    {
+        return $this->model->query()->orderByDesc('created_at')->limit($count)->get('id', 'name')->toArray();
+    }
+
 }

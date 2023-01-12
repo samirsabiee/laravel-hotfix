@@ -15,9 +15,7 @@ class HotfixStatusCommand extends Command
     public function handle()
     {
         try {
-            $outputFile = (new StubManager())
-                ->setName($this->argument('name'))->create();
-            $this->info('File Created At ' . $outputFile);
+           //todo
         } catch (Exception $e) {
             $this->error($e->getMessage());
         }
