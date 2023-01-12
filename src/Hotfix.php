@@ -2,7 +2,6 @@
 
 namespace SamirSabiee\Hotfix;
 
-use Exception;
 use Illuminate\Support\Facades\DB;
 use SamirSabiee\Hotfix\Models\Hotfix as HotfixModel;
 
@@ -31,7 +30,7 @@ abstract class Hotfix implements IHotfix
                 'name' => static::class,
                 'error' => null
             ]);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             HotfixModel::query()->updateOrCreate([
                 'name' => static::class

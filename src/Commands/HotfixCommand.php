@@ -2,7 +2,6 @@
 
 namespace SamirSabiee\Hotfix\Commands;
 
-use Exception;
 use Illuminate\Console\Command;
 use SamirSabiee\Hotfix\Hotfix;
 use SamirSabiee\Hotfix\StubManager;
@@ -27,7 +26,7 @@ class HotfixCommand extends Command
                 $hotfix = resolve("App\\Hotfixes" . str_replace('/', '\\', last(array_reverse(explode('.php', last(explode('app/Hotfixes', $file)))))));
                 $hotfix->run();
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->error($e->getMessage());
         }
     }
