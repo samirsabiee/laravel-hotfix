@@ -21,14 +21,20 @@ class HotfixCommand extends Command
         $files = glob(app_path('Hotfixes/' . config('hotfix.path')));
 
         if (count($files) == 0) {
-            $this->line('No hotfix found check your config path or be sure you have hotfix in app/Hotfixes folder and it\'s subFolders');
+            echo "\033[34m" . 'No hotfix found check your config path or be sure you have hotfix in app/Hotfixes folder and it\'s subFolders' . " \033 \r\n";
             return;
         }
+
         $files = collect(array_slice($files, $this->argument('last') * -1))->map(function ($file) {
             return "App\\Hotfixes" . str_replace('/', '\\', last(array_reverse(explode('.php', last(explode('app/Hotfixes', $file))))));
         })->toArray();
 
         $files = $hotfixRepository->getNotRunedHotfixes($files);
+
+        if (count($files) == 0) {
+            echo "\033[34m" . 'The last ' . $this->argument('last') . ' files have been executed. There is nothing to execute' . " \033 \r\n";
+            return;
+        }
 
         foreach ($files as $file) {
             try {
