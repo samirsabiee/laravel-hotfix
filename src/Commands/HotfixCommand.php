@@ -3,7 +3,9 @@
 namespace SamirSabiee\Hotfix\Commands;
 
 use Illuminate\Console\Command;
+use PhpParser\Error;
 use SamirSabiee\Hotfix\Hotfix;
+use SamirSabiee\Hotfix\Models\Hotfix as HotfixModel;
 use SamirSabiee\Hotfix\StubManager;
 
 class HotfixCommand extends Command
@@ -26,8 +28,13 @@ class HotfixCommand extends Command
                 $hotfix = resolve("App\\Hotfixes" . str_replace('/', '\\', last(array_reverse(explode('.php', last(explode('app/Hotfixes', $file)))))));
                 $hotfix->run();
             }
-        } catch (\Exception $e) {
-            $this->error($e->getMessage());
+        } catch (\ParseError | Error | \Exception $e) {
+            HotfixModel::query()->updateOrCreate([
+                'name' => static::class
+            ], [
+                'name' => static::class,
+                'error' => $e
+            ]);
         }
     }
 }
