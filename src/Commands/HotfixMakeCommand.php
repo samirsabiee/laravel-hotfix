@@ -18,7 +18,7 @@ class HotfixMakeCommand extends Command
             $outputFile = (new StubManager())
                 ->setName($this->argument('name'))->create();
             $this->info('File Created At ' . $outputFile);
-        } catch (Exception $e) {
+        } catch (\Error|\Exception $e) {
             $this->error($e->getMessage());
         }
     }

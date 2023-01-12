@@ -6,9 +6,16 @@ use SamirSabiee\Hotfix\Models\Hotfix as HotfixModel;
 
 class HotfixRepository
 {
-    public function updateOrCreate(string $name, \Error $e = null): void
+    private HotfixModel $model;
+
+    public function __construct(HotfixModel $model)
     {
-        HotfixModel::query()->updateOrCreate([
+        $this->model = $model;
+    }
+
+    public function updateOrCreate(string $name, \Error|\Exception $e = null): void
+    {
+        $this->model->query()->updateOrCreate([
             'name' => $name
         ], [
             'name' => $name,
@@ -17,6 +24,12 @@ class HotfixRepository
                 'stack' => $e->getTrace()
             ])
         ]);
+    }
+
+    public function getNotRunedHotfixes(array $hotfixes)
+    {
+        $dbHotfixes = $this->model->query()->whereIn('name', $hotfixes)->pluck('name')->toArray();
+        return array_diff($hotfixes, $dbHotfixes);
     }
 
 }

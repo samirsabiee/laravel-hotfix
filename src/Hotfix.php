@@ -27,7 +27,7 @@ abstract class Hotfix implements IHotfix
                 $this->handle();
             }
             $this->hotfixRepository->updateOrCreate(static::class);
-        } catch (\Error $e) {
+        } catch (\Error | \Exception $e) {
             DB::rollBack();
             $this->hotfixRepository->updateOrCreate(static::class, $e);
         }
