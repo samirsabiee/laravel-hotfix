@@ -9,14 +9,15 @@ use SamirSabiee\Hotfix\StubManager;
 
 class HotfixLsCommand extends Command
 {
-    public $signature = 'hotfix ls { count? : the nth last hotfix}';
+    public $signature = 'hotfix:ls { count? : the nth last hotfix}';
 
     public $description = 'Show info of hot fix';
 
     public function handle()
     {
         try {
-            $this->table(['ID', 'NAME'], resolve(HotfixRepository::class)->ls($this->argument('count')));
+            $count = $this->argument('count');
+            $this->table(['ID', 'NAME'], resolve(HotfixRepository::class)->ls(is_null($count) ? 10 : $count));
         } catch (Exception $e) {
             $this->error($e->getMessage());
         }

@@ -34,7 +34,7 @@ class HotfixRepository
 
     public function ls(int $count = 10): array
     {
-        return $this->model->query()->orderByDesc('created_at')->limit($count)->get('id', 'name')->toArray();
+        return $this->model->query()->orderByDesc('id')->limit($count)->get(['id', 'name'])->toArray();
     }
 
 }
