@@ -39,7 +39,7 @@ class StubManager
      */
     public function setName(string $name): static
     {
-        $this->name = $name;
+        $this->name = 'Hotfix_' . now()->timestamp . '_' . $name;
         return $this;
     }
 
@@ -55,7 +55,7 @@ class StubManager
             throw new Exception ('Could not find stub in path ' . $stubPath);
         }
 
-        $outputFile = $this->getPath() . '/' . now()->timestamp . '_' . strtolower($this->getName()) . '.php';
+        $outputFile = $this->getPath() . '/' . $this->getName() . '.php';
 
         if (file_exists($outputFile)) {
             throw new Exception($outputFile . ' already exists');
