@@ -8,7 +8,7 @@ use SamirSabiee\Hotfix\StubManager;
 
 class HotfixRunCommand extends Command
 {
-    public $signature = 'hotfix:make { name : Hotfix class name}';
+    public $signature = 'hotfix:run { name : Hotfix class name}';
 
     public $description = 'Run Single Hotfix By Name';
 

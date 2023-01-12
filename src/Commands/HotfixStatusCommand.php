@@ -8,7 +8,7 @@ use SamirSabiee\Hotfix\StubManager;
 
 class HotfixStatusCommand extends Command
 {
-    public $signature = 'hotfix:make { name : Hotfix class name}';
+    public $signature = 'hotfix:status { name : Hotfix class name}';
 
     public $description = 'Make Hotfix Stub File';
 
