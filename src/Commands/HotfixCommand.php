@@ -16,6 +16,10 @@ class HotfixCommand extends Command
 
     public function handle()
     {
+        if(!is_numeric($this->argument('last')) && $this->argument('last') != 'all'){
+            $this->error('Invalid Options');
+            return;
+        }
         /** @var HotfixRepository $hotfixRepository */
         $hotfixRepository = resolve(HotfixRepository::class);
         $files = glob(app_path('Hotfixes/' . config('hotfix.path')));
