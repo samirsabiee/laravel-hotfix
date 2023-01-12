@@ -42,4 +42,9 @@ class HotfixRepository
         return $this->model->query()->where('id', $id)->get(['id', 'name', 'error'])->toArray();
     }
 
+    public function prune(array $hotfixes): void
+    {
+        $this->model->query()->whereNotIn('name', $hotfixes)->delete();
+    }
+
 }
