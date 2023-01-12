@@ -8,10 +8,12 @@ use SamirSabiee\Hotfix\Models\Hotfix as HotfixModel;
 abstract class Hotfix implements IHotfix
 {
     protected bool $transaction;
+    private HotfixRepository $hotfixRepository;
 
-    public function __construct()
+    public function __construct(HotfixRepository $hotfixRepository)
     {
         $this->transaction = config('hotfix.database.transaction');
+        $this->hotfixRepository = $hotfixRepository;
     }
 
     abstract function handle();
@@ -24,23 +26,10 @@ abstract class Hotfix implements IHotfix
             } else {
                 $this->handle();
             }
-            HotfixModel::query()->updateOrCreate([
-                'name' => static::class
-            ], [
-                'name' => static::class,
-                'error' => null
-            ]);
+            $this->hotfixRepository->updateOrCreate(static::class);
         } catch (\Error $e) {
             DB::rollBack();
-            HotfixModel::query()->updateOrCreate([
-                'name' => static::class
-            ], [
-                'name' => static::class,
-                'error' =>  json_encode([
-                    'message' => $e->getMessage(),
-                    'stack' => $e->getTrace()
-                ])
-            ]);
+            $this->hotfixRepository->updateOrCreate(static::class, $e);
         }
     }
 

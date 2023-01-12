@@ -4,6 +4,7 @@ namespace SamirSabiee\Hotfix\Commands;
 
 use Illuminate\Console\Command;
 use SamirSabiee\Hotfix\Hotfix;
+use SamirSabiee\Hotfix\HotfixRepository;
 use SamirSabiee\Hotfix\Models\Hotfix as HotfixModel;
 use SamirSabiee\Hotfix\StubManager;
 
@@ -29,15 +30,7 @@ class HotfixCommand extends Command
                 $hotfix->run();
             }
         } catch (\Error $e) {
-            HotfixModel::query()->updateOrCreate([
-                'name' => $file
-            ], [
-                'name' => $file,
-                'error' => json_encode([
-                    'message' => $e->getMessage(),
-                    'stack' => $e->getTrace()
-                ])
-            ]);
+            resolve(HotfixRepository::class)->updateOrCreate($file, $e);
         }
     }
 }
