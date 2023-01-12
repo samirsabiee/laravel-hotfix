@@ -25,13 +25,17 @@ abstract class Hotfix implements IHotfix
             } else {
                 $this->handle();
             }
-            HotfixModel::query()->create([
+            HotfixModel::query()->updateOrCreate([
+                'name' => static::class
+            ], [
                 'name' => static::class,
                 'error' => null
             ]);
         } catch (Exception $e) {
             DB::rollBack();
-            HotfixModel::query()->create([
+            HotfixModel::query()->updateOrCreate([
+                'name' => static::class
+            ], [
                 'name' => static::class,
                 'error' => $e
             ]);
