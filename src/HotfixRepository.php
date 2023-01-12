@@ -19,7 +19,7 @@ class HotfixRepository
             'name' => $name
         ], [
             'name' => $name,
-            'error' =>  json_encode([
+            'error' => is_null($e) ? null : json_encode([
                 'message' => $e->getMessage(),
                 'stack' => $e->getTrace()
             ])
