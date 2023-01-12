@@ -34,6 +34,7 @@ class HotfixServiceProvider extends ServiceProvider
             $this->commands([
                 Commands\HotfixCommand::class,
                 Commands\HotfixLogsCommand::class,
+                Commands\HotfixLsCommand::class,
                 Commands\HotfixMakeCommand::class,
                 Commands\HotfixPruneCommand::class,
                 Commands\HotfixRetryCommand::class,
