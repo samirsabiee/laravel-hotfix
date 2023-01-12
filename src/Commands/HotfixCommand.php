@@ -9,7 +9,7 @@ use SamirSabiee\Hotfix\StubManager;
 
 class HotfixCommand extends Command
 {
-    public $signature = 'hotfix';
+    public $signature = 'hotfix { last : execute nth last hotfix default is one}';
 
     public $description = 'Run new hotfix files';
 
@@ -17,7 +17,7 @@ class HotfixCommand extends Command
     {
         try {
             $files = glob(app_path('Hotfixes/' . config('hotfix.path')));
-            foreach ($files as $file) {
+            foreach (array_slice($files, $this->argument('last') * -1) as $file) {
                 /** @var Hotfix $hotfix */
                 $hotfix = resolve("App\\Hotfixes" . str_replace('/', '\\', last(array_reverse(explode('.php', last(explode('app/Hotfixes', $file)))))));
                 $hotfix->run();
