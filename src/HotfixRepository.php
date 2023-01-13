@@ -42,7 +42,7 @@ class HotfixRepository
         return $query->limit($count)->get()->toArray();
     }
 
-    public function findById(string $id, $columns = ['id', 'name', 'error']): array
+    public function findById(string $id, $columns = ['*']): array
     {
         return $this->model->query()->where('id', $id)->first($columns)->toArray();
     }
