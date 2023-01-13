@@ -31,7 +31,7 @@ class HotfixRetryCommand extends HotfixBaseCommand
         } elseif (is_numeric($this->argument('name'))) {
             $files = $this->hotfixRepository->findByIdWithError($this->argument('name'), ['name']);
             if (count($files) == 0) {
-                echo "\033[34m" . 'Hotfix with ' . $this->argument('name') . 'ID not executed or executed with no error' . " \033 \r\n";
+                echo "\033[34m" . 'Hotfix with ' . $this->argument('name') . ' ID not executed or executed with no error' . " \033 \r\n";
                 return;
             }
         } else {

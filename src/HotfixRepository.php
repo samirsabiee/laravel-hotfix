@@ -49,7 +49,12 @@ class HotfixRepository
 
     public function findByIdWithError(string $id, $columns = ['id', 'name', 'error']): array
     {
-        return $this->model->query()->where('id', $id)->whereNotNull('error')->firstOrFail($columns)->toArray();
+        $hotfix = $this->model->query()->whereNotNull('error')->where('id', $id)->first($columns);
+        if(is_null($hotfix)){
+            return [];
+        }
+        return $hotfix->toArray();
+
     }
 
     public function prune(array $hotfixes): void
