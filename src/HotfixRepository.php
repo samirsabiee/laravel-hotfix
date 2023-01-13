@@ -2,6 +2,8 @@
 
 namespace SamirSabiee\Hotfix;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use SamirSabiee\Hotfix\Models\Hotfix as HotfixModel;
 
 class HotfixRepository
@@ -67,6 +69,10 @@ class HotfixRepository
         return $this->model->query()->whereIn('name', $hotfixes)
             ->whereNotNull('error')
             ->pluck('name')->toArray();
+    }
+    public function findBy(string $column, $value)
+    {
+        return $this->model->query()->where($column,  $value)->first();
     }
 
 }

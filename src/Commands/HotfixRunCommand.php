@@ -28,6 +28,10 @@ class HotfixRunCommand extends HotfixBaseCommand
                 return;
             }
 
+            $files = collect($files)->map(function ($file) {
+                return "App\\Hotfixes" . str_replace('/', '\\', last(array_reverse(explode('.php', last(explode('app/Hotfixes', $file))))));
+            })->toArray();
+
             if (count($files) > 1) {
                 $counter = 0;
                 foreach ($files as $file){
@@ -38,10 +42,6 @@ class HotfixRunCommand extends HotfixBaseCommand
                 $files = $tableData[$index];
                 array_shift($files);
             }
-
-            $files = collect($files)->map(function ($file) {
-                return "App\\Hotfixes" . str_replace('/', '\\', last(array_reverse(explode('.php', last(explode('app/Hotfixes', $file))))));
-            })->toArray();
 
             foreach ($files as $file) {
                 try {
