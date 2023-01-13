@@ -39,7 +39,11 @@ class StubManager
      */
     public function setName(string $name): static
     {
-        $this->name = 'Hotfix_' . now()->timestamp . '_' . $name;
+        $nameParts = explode('/', $name);
+        $name = last($nameParts);
+        array_pop($nameParts);
+        $subFolders = implode('/', $nameParts);
+        $this->name = $subFolders . '/Hotfix_' . now()->timestamp . '_' . $name;
         return $this;
     }
 
