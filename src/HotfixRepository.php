@@ -32,11 +32,14 @@ class HotfixRepository
         return array_diff($hotfixes, $dbHotfixes);
     }
 
-    public function ls(int $count = 10): array
+    public function ls(int $count = 10, $justExecutedWithError = false): array
     {
-        return $this->model->query()->orderByDesc('id')
-            ->selectRaw('id, name, error::json->>\'message\'')
-            ->limit($count)->get()->toArray();
+        $query = $this->model->query()->orderByDesc('id')
+            ->selectRaw('id, name, error::json->>\'message\'');
+        if ($justExecutedWithError) {
+            $query->whereNotNull('error');
+        }
+        return $query->limit($count)->get()->toArray();
     }
 
     public function findById(string $id, $columns = ['id', 'name', 'error']): array
