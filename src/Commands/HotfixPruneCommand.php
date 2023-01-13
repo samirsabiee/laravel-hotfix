@@ -9,7 +9,7 @@ use SamirSabiee\Hotfix\StubManager;
 
 class HotfixPruneCommand extends HotfixBaseCommand
 {
-    public $signature = 'hotfix:prune}';
+    public $signature = 'hotfix:prune';
 
     public $description = 'Sync Database With Files Exist On Path Storage';
 

@@ -13,7 +13,7 @@ class HotfixLsCommand extends HotfixBaseCommand
                         { count? : the nth last hotfix}
                         {--error : when is true just hotfixes executed with error will be shown}';
 
-    public $description = 'Show info of hot fix';
+    public $description = 'Show info of hotfix';
 
     public function handle()
     {

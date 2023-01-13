@@ -10,7 +10,7 @@ class HotfixStatusCommand extends HotfixBaseCommand
 {
     public $signature = 'hotfix:status { name : Hotfix class name}';
 
-    public $description = 'Make Hotfix Stub File';
+    public $description = 'Show Hotfix execution Status By Failed Or Success';
 
     public function handle()
     {
