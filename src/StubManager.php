@@ -43,7 +43,8 @@ class StubManager
         $name = last($nameParts);
         array_pop($nameParts);
         $subFolders = implode('/', $nameParts);
-        $this->name = $subFolders . '/Hotfix_' . now()->timestamp . '_' . $name;
+        $subFolders .= empty($subFolders) ? '' : '/';
+        $this->name = $subFolders . 'Hotfix_' . now()->timestamp . '_' . $name;
         return $this;
     }
 
