@@ -34,7 +34,9 @@ class HotfixRepository
 
     public function ls(int $count = 10): array
     {
-        return $this->model->query()->orderByDesc('id')->limit($count)->get(['id', 'name'])->toArray();
+        return $this->model->query()->orderByDesc('id')
+            ->selectRaw('id, name, error::json->>\'message\'')
+            ->limit($count)->get()->toArray();
     }
 
     public function findById(string $id, $columns = ['id', 'name', 'error']): array

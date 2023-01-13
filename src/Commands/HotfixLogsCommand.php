@@ -16,8 +16,8 @@ class HotfixLogsCommand extends HotfixBaseCommand
     public function handle()
     {
         try {
-            $this->table(['ID', 'NAME', 'ERROR'], $this->hotfixRepository
-                ->findById($this->argument('id')));
+            $this->table(['ID', 'NAME', 'ERROR'], [$this->hotfixRepository
+                ->findById($this->argument('id'))]);
         } catch (Exception $e) {
             $this->error($e->getMessage());
         }

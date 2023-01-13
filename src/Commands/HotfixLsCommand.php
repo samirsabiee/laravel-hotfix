@@ -17,7 +17,7 @@ class HotfixLsCommand extends HotfixBaseCommand
     {
         try {
             $count = $this->argument('count');
-            $this->table(['ID', 'NAME'], $this->hotfixRepository->ls(is_null($count) ? 10 : $count));
+            $this->table(['ID', 'NAME', 'ERROR'], $this->hotfixRepository->ls(is_null($count) ? 10 : $count));
         } catch (Exception $e) {
             $this->error($e->getMessage());
         }
