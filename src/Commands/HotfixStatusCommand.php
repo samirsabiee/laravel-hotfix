@@ -34,7 +34,7 @@ class HotfixStatusCommand extends HotfixBaseCommand
 
             if (count($files) > 1) {
                 $counter = 0;
-                foreach ($files as $file){
+                foreach ($files as $file) {
                     $tableData[] = [$counter++, $file];
                 }
                 $this->table(['NUMBER', 'NAME'], $tableData);
@@ -45,8 +45,19 @@ class HotfixStatusCommand extends HotfixBaseCommand
 
             foreach ($files as $file) {
                 try {
-                    dd($this->hotfixRepository->findBy('name', $file));
-                    $hotfix = $this->hotfixRepository->findBy('name', $file)->toArray();
+                    /** @var \SamirSabiee\Hotfix\Models\Hotfix $hotfix */
+                    $hotfix = $this->hotfixRepository->findBy('name', $file);
+                    if (is_null($hotfix)) {
+                        echo "\033[34m" . $file . ' Not executed' . " \033 \r\n";
+                        return;
+                    }
+                    if (is_null($hotfix->error)) {
+                        $this->info($file . ' executed successfully');
+                        return;
+                    } else {
+                        echo "\033[34m" . $file . ' executed With error' . " \033 \r\n";
+                        return;
+                    }
                 } catch (\Error|\Exception $e) {
                     echo "\033[31m \xE2\x9D\x8C " . $file . " \033 \r\n";
                 }
