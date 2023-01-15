@@ -31,7 +31,7 @@ class HotfixLsCommand extends HotfixBaseCommand
                 return "App\\Hotfixes" . str_replace('/', '\\', last(array_reverse(explode('.php', last(explode('app/Hotfixes', $file))))));
             })->toArray();
 
-            if (!is_null($this->argument('last')) && is_numeric($this->argument('last'))) {
+            if (!is_null($this->argument('count')) && is_numeric($this->argument('count'))) {
                 $files = array_slice($files, $this->argument('last') * -1);
             } else {
                 $files = array_slice($files, -10);
@@ -40,11 +40,26 @@ class HotfixLsCommand extends HotfixBaseCommand
             $fromDbFiles = $this->hotfixRepository->ls($files, $this->option('error') == true);
 
             if ($this->option('error')) {
-                $fromDbFiles = collect($fromDbFiles)->map(fn($dbFile) => $dbFile['STATUS'] = 'EXECUTED');
-                $this->table(['ID', 'NAME', 'ERROR', 'STATUS'], $fromDbFiles);
+                $filesReadyToTable = collect($fromDbFiles)->map(function ($dbFile) {
+                    $dbFile['STATUS'] = 'FAILED';
+                    return $dbFile;
+                })->toArray();
             } else {
-                //TODO
+                $filesReadyToTable = collect($files)->map(function ($file) use($fromDbFiles) {
+                    $dbFile = collect($fromDbFiles)->where('name', $file)->first();
+                    if(is_null($dbFile)){
+                        return [
+                            'id' => null,
+                            'name' => $file,
+                            'error' => null,
+                            'status' => 'NOT EXECUTED',
+                        ];
+                    }
+                    $dbFile['status'] = is_null($dbFile['error']) ? 'SUCCESS' : 'FAILED';
+                    return $dbFile;
+                })->toArray();
             }
+            $this->table(['ID', 'NAME', 'ERROR', 'STATUS'], $filesReadyToTable);
         } catch (Exception $e) {
             $this->error($e->getMessage());
         }

@@ -37,7 +37,7 @@ class HotfixRepository
     public function ls(array $hotfixes, $justExecutedWithError = false): array
     {
         $query = $this->model->query()->whereIn('name', $hotfixes)->orderByDesc('id')
-            ->selectRaw('id, name, error::json->>\'message\'');
+            ->selectRaw('id, name, error::json->>\'message\' as error');
         if ($justExecutedWithError) {
             $query->whereNotNull('error');
         }
