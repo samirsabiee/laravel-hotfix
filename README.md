@@ -3,7 +3,8 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/samirsabiee/laravel-hotfix.svg?style=flat-square)](https://packagist.org/packages/samirsabiee/laravel-hotfix)
 <!--delete-->
 ---
-This is my package laravel-hotfix
+Hotfix laravel package with DB Transaction control
+
 
 ## Installation
 
@@ -14,6 +15,17 @@ composer require samirsabiee/laravel-hotfix
 ```
 
 ## Usage
+* Commands
+  * ```bash
+    php artisan hotfix {{NUMBER}}
+    ```
+    Above command execute {{NUMBER}} last **not executed** hotfixes created in path config under app/Hotfixes directory
+  * ```bash
+    php artisan hotfix all
+    ```
+    Above command execute all **not executed** hotfixes created in path config under app/Hotfixes directory
+
+
 
 ```php
 $skeleton = new SamirSabiee\Hotfix();
