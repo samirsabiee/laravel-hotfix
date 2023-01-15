@@ -2,7 +2,9 @@
 
 namespace SamirSabiee\Hotfix\Models;
 
-class Hotfix extends \Illuminate\Database\Eloquent\Model
+use Illuminate\Database\Eloquent\Model;
+
+class Hotfix extends Model
 {
     protected $fillable = ['name', 'error'];
 }
