@@ -13,16 +13,15 @@ class HotfixPruneCommand extends HotfixBaseCommand
     public function handle()
     {
         try {
-            $files = glob(app_path('Hotfixes/' . config('hotfix.path')));
+            $files = glob(app_path('Hotfixes/'.config('hotfix.path')));
 
             $files = collect($files)->map(function ($file) {
-                return "App\\Hotfixes" . str_replace('/', '\\', last(array_reverse(explode('.php', last(explode('app/Hotfixes', $file))))));
+                return 'App\\Hotfixes'.str_replace('/', '\\', last(array_reverse(explode('.php', last(explode('app/Hotfixes', $file))))));
             })->toArray();
 
             $this->hotfixRepository->prune($files);
 
             $this->info('Database Synced With file on Storage');
-
         } catch (Exception $e) {
             $this->error($e->getMessage());
         }

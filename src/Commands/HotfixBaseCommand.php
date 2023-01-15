@@ -8,6 +8,7 @@ use SamirSabiee\Hotfix\HotfixRepository;
 abstract class HotfixBaseCommand extends Command
 {
     protected HotfixRepository $hotfixRepository;
+
     public function __construct()
     {
         parent::__construct();
@@ -16,6 +17,6 @@ abstract class HotfixBaseCommand extends Command
 
     public function getFiles(): bool|array
     {
-        return glob(app_path('Hotfixes/' . config('hotfix.path')));
+        return glob(app_path('Hotfixes/'.config('hotfix.path')));
     }
 }

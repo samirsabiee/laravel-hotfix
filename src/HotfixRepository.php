@@ -16,19 +16,20 @@ class HotfixRepository
     public function updateOrCreate(string $name, \Error|\Exception $e = null): void
     {
         $this->model->query()->updateOrCreate([
-            'name' => $name
+            'name' => $name,
         ], [
             'name' => $name,
             'error' => is_null($e) ? null : json_encode([
                 'message' => $e->getMessage(),
-                'stack' => $e->getTrace()
-            ])
+                'stack' => $e->getTrace(),
+            ]),
         ]);
     }
 
     public function getNotExecutedHotfixes(array $hotfixes): array
     {
         $dbHotfixes = $this->model->query()->whereIn('name', $hotfixes)->pluck('name')->toArray();
+
         return array_diff($hotfixes, $dbHotfixes);
     }
 
@@ -39,9 +40,10 @@ class HotfixRepository
         if ($justExecutedWithError) {
             $query->whereNotNull('error');
         }
-        if (isset($limit) && !is_null($limit)) {
+        if (isset($limit) && ! is_null($limit)) {
             $query->limit($limit);
         }
+
         return $query->get()->toArray();
     }
 
@@ -56,8 +58,8 @@ class HotfixRepository
         if (is_null($hotfix)) {
             return [];
         }
-        return $hotfix->toArray();
 
+        return $hotfix->toArray();
     }
 
     public function prune(array $hotfixes): void
@@ -76,5 +78,4 @@ class HotfixRepository
     {
         return $this->model->query()->where($column, $value)->first();
     }
-
 }

@@ -34,7 +34,7 @@ class StubManager
     }
 
     /**
-     * @param string $name
+     * @param  string  $name
      * @return StubManager
      */
     public function setName(string $name): static
@@ -44,7 +44,8 @@ class StubManager
         array_pop($nameParts);
         $subFolders = implode('/', $nameParts);
         $subFolders .= empty($subFolders) ? '' : '/';
-        $this->name = $subFolders . 'Hotfix_' . now()->timestamp . '_' . $name;
+        $this->name = $subFolders.'Hotfix_'.now()->timestamp.'_'.$name;
+
         return $this;
     }
 
@@ -53,17 +54,17 @@ class StubManager
      */
     public function create()
     {
-        $stubPath = __DIR__ . '/Stubs/Hotfix.stub';
+        $stubPath = __DIR__.'/Stubs/Hotfix.stub';
 
         // If we cant find the stub at all simply fail.
-        if (!file_exists($stubPath)) {
-            throw new Exception ('Could not find stub in path ' . $stubPath);
+        if (! file_exists($stubPath)) {
+            throw new Exception('Could not find stub in path '.$stubPath);
         }
 
-        $outputFile = $this->getPath() . '/' . $this->getName() . '.php';
+        $outputFile = $this->getPath().'/'.$this->getName().'.php';
 
         if (file_exists($outputFile)) {
-            throw new Exception($outputFile . ' already exists');
+            throw new Exception($outputFile.' already exists');
         }
 
         $stubContent = file_get_contents($stubPath);
@@ -81,12 +82,12 @@ class StubManager
 
         $newContent = str_replace('{CLASS_NAME}', $className, $newContent);
 
-        if (!file_exists(base_path($this->getPath() . '/' . implode('/', $dirs)))) {
-            mkdir(base_path($this->getPath() . '/' . implode('/', $dirs)), 0755, true);
+        if (! file_exists(base_path($this->getPath().'/'.implode('/', $dirs)))) {
+            mkdir(base_path($this->getPath().'/'.implode('/', $dirs)), 0755, true);
         }
 
-        if (!file_put_contents($outputFile, $newContent)) {
-            throw new Exception('Could not write to ' . $outputFile);
+        if (! file_put_contents($outputFile, $newContent)) {
+            throw new Exception('Could not write to '.$outputFile);
         }
 
         return $outputFile;

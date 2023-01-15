@@ -10,7 +10,7 @@ return [
 
         'connection' => config('database.default'),
 
-        'table' => 'hotfixes'
+        'table' => 'hotfixes',
 
     ],
 

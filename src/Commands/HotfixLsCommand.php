@@ -20,16 +20,17 @@ class HotfixLsCommand extends HotfixBaseCommand
             $files = $this->getFiles();
 
             if (count($files) == 0) {
-                echo "\033[34m" . 'No hotfix found check your config path or be sure you have hotfix in app/Hotfixes folder and it\'s subFolders' . " \033 \r\n";
+                echo "\033[34m".'No hotfix found check your config path or be sure you have hotfix in app/Hotfixes folder and it\'s subFolders'." \033 \r\n";
+
                 return;
             }
 
             $files = collect($files)->map(function ($file) {
-                return "App\\Hotfixes" . str_replace('/', '\\', last(array_reverse(explode('.php', last(explode('app/Hotfixes', $file))))));
+                return 'App\\Hotfixes'.str_replace('/', '\\', last(array_reverse(explode('.php', last(explode('app/Hotfixes', $file))))));
             })->toArray();
-            if (!is_null($this->argument('count')) && is_numeric($this->argument('count')) && $this->option('error') == true) {
+            if (! is_null($this->argument('count')) && is_numeric($this->argument('count')) && $this->option('error') == true) {
                 $limit = $this->argument('count');
-            } elseif (!is_null($this->argument('count')) && is_numeric($this->argument('count'))) {
+            } elseif (! is_null($this->argument('count')) && is_numeric($this->argument('count'))) {
                 $files = array_slice($files, $this->argument('count') * -1);
             } else {
                 $files = array_slice($files, -10);
@@ -40,6 +41,7 @@ class HotfixLsCommand extends HotfixBaseCommand
             if ($this->option('error')) {
                 $filesReadyToTable = collect($fromDbFiles)->map(function ($dbFile) {
                     $dbFile['STATUS'] = 'FAILED';
+
                     return $dbFile;
                 })->toArray();
             } else {
@@ -54,6 +56,7 @@ class HotfixLsCommand extends HotfixBaseCommand
                         ];
                     }
                     $dbFile['status'] = is_null($dbFile['error']) ? 'SUCCESS' : 'FAILED';
+
                     return $dbFile;
                 })->toArray();
             }
