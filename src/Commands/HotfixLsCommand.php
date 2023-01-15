@@ -30,14 +30,15 @@ class HotfixLsCommand extends HotfixBaseCommand
             $files = collect($files)->map(function ($file) {
                 return "App\\Hotfixes" . str_replace('/', '\\', last(array_reverse(explode('.php', last(explode('app/Hotfixes', $file))))));
             })->toArray();
-
-            if (!is_null($this->argument('count')) && is_numeric($this->argument('count'))) {
-                $files = array_slice($files, $this->argument('last') * -1);
+            if (!is_null($this->argument('count')) && is_numeric($this->argument('count')) && $this->option('error') == true) {
+                $limit = $this->argument('count');
+            } elseif (!is_null($this->argument('count')) && is_numeric($this->argument('count'))) {
+                $files = array_slice($files, $this->argument('count') * -1);
             } else {
                 $files = array_slice($files, -10);
             }
 
-            $fromDbFiles = $this->hotfixRepository->ls($files, $this->option('error') == true);
+            $fromDbFiles = $this->hotfixRepository->ls($files, $this->option('error') == true, @$limit);
 
             if ($this->option('error')) {
                 $filesReadyToTable = collect($fromDbFiles)->map(function ($dbFile) {
@@ -45,9 +46,9 @@ class HotfixLsCommand extends HotfixBaseCommand
                     return $dbFile;
                 })->toArray();
             } else {
-                $filesReadyToTable = collect($files)->map(function ($file) use($fromDbFiles) {
+                $filesReadyToTable = collect($files)->map(function ($file) use ($fromDbFiles) {
                     $dbFile = collect($fromDbFiles)->where('name', $file)->first();
-                    if(is_null($dbFile)){
+                    if (is_null($dbFile)) {
                         return [
                             'id' => null,
                             'name' => $file,
