@@ -2,8 +2,6 @@
 
 namespace SamirSabiee\Hotfix\Commands;
 
-use Exception;
-use Illuminate\Console\Command;
 use SamirSabiee\Hotfix\StubManager;
 
 class HotfixMakeCommand extends HotfixBaseCommand

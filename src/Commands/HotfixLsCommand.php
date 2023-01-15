@@ -3,9 +3,6 @@
 namespace SamirSabiee\Hotfix\Commands;
 
 use Exception;
-use Illuminate\Console\Command;
-use SamirSabiee\Hotfix\HotfixRepository;
-use SamirSabiee\Hotfix\StubManager;
 
 class HotfixLsCommand extends HotfixBaseCommand
 {

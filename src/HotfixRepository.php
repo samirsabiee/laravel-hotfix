@@ -2,8 +2,6 @@
 
 namespace SamirSabiee\Hotfix;
 
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use SamirSabiee\Hotfix\Models\Hotfix as HotfixModel;
 
 class HotfixRepository

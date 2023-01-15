@@ -3,9 +3,6 @@
 namespace SamirSabiee\Hotfix\Commands;
 
 use SamirSabiee\Hotfix\Hotfix;
-use SamirSabiee\Hotfix\HotfixRepository;
-use SamirSabiee\Hotfix\Models\Hotfix as HotfixModel;
-use SamirSabiee\Hotfix\StubManager;
 
 class HotfixCommand extends HotfixBaseCommand
 {

@@ -3,7 +3,6 @@
 namespace SamirSabiee\Hotfix;
 
 use Illuminate\Support\Facades\DB;
-use SamirSabiee\Hotfix\Models\Hotfix as HotfixModel;
 
 abstract class Hotfix implements IHotfix
 {
