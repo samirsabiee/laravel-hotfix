@@ -3,7 +3,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/samirsabiee/laravel-hotfix.svg?style=flat-square)](https://packagist.org/packages/samirsabiee/laravel-hotfix)
 <!--delete-->
 ---
-Hotfix laravel package with DB Transaction control
+Hotfix laravel package with DB Transaction control first publish config and migration file and start using
 
 
 ## Installation
