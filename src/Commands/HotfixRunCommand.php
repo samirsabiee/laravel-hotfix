@@ -7,7 +7,7 @@ use SamirSabiee\Hotfix\Hotfix;
 
 class HotfixRunCommand extends HotfixBaseCommand
 {
-    public $signature = 'hotfix:run { name : Hotfix class name}';
+    public $signature = 'hotfix:run { name : Hotfix class ID}';
 
     public $description = 'Run Single Hotfix By Name';
 
