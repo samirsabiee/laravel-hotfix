@@ -34,14 +34,14 @@ class HotfixRepository
         return array_diff($hotfixes, $dbHotfixes);
     }
 
-    public function ls(int $count = 10, $justExecutedWithError = false): array
+    public function ls(array $hotfixes, $justExecutedWithError = false): array
     {
-        $query = $this->model->query()->orderByDesc('id')
+        $query = $this->model->query()->whereIn('name', $hotfixes)->orderByDesc('id')
             ->selectRaw('id, name, error::json->>\'message\'');
         if ($justExecutedWithError) {
             $query->whereNotNull('error');
         }
-        return $query->limit($count)->get()->toArray();
+        return $query->get()->toArray();
     }
 
     public function findById(string $id, $columns = ['*']): array

@@ -13,4 +13,9 @@ abstract class HotfixBaseCommand extends Command
         parent::__construct();
         $this->hotfixRepository = resolve(HotfixRepository::class);
     }
+
+    public function getFiles(): bool|array
+    {
+        return glob(app_path('Hotfixes/' . config('hotfix.path')));
+    }
 }
