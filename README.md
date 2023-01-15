@@ -17,34 +17,58 @@ composer require samirsabiee/laravel-hotfix
 ## Usage
 * Commands
   * ```bash
-    php artisan hotfix {{NUMBER}}
+    php artisan hotfix:make <<NAME>>
     ```
-    Above command execute {{NUMBER}} last **not executed** hotfixes created in path config under app/Hotfixes directory
+    Above command create stub hotfix file app/Hotfixes/**config.path**
+
+  * ```bash
+    php artisan hotfix <<NUMBER>>
+    ```
+    Above command execute **NUMBER** last **not executed** hotfixes created in path config under app/Hotfixes directory
+
   * ```bash
     php artisan hotfix all
     ```
     Above command execute all **not executed** hotfixes created in path config under app/Hotfixes directory
+  * ```bash
+    php artisan hotfix:run <<NAME>>
+    ```
+    Above command run single hotfix By entering hotfix name (you can enter part of name and select one of founded hotfixes)
 
+  * ```bash
+    php artisan hotfix:ls 
+    ```
+    Above command list 10 last hotfixes with error and status column
 
+  * ```bash
+    php artisan hotfix:ls <<NUMBER>>
+    ```
+    Above command list **NUMBER** last hotfixes with error and status column
 
-```php
-$skeleton = new SamirSabiee\Hotfix();
-echo $skeleton->echoPhrase('Hello, SamirSabiee!');
-```
+  * ```bash
+    php artisan hotfix:ls <<NUMBER>> --error
+    ```
+    Above command list **NUMBER** last hotfixes executed with error
 
-## Testing
+  * ```bash
+    php artisan hotfix:logs <<ID>>
+    ```
+    Above command show long log of hotfix by id shown in ls command
 
-```bash
-composer test
-```
+  * ```bash
+    php artisan hotfix:retry <<ID>>
+    ```
+    Above command retry hotfix that executed with error by ID shown in ls command
 
-## Changelog
+  * ```bash
+    php artisan hotfix:retry all
+    ```
+    Above command retry all hotfixes executed with error
 
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
-
-## Security Vulnerabilities
-
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
+  * ```bash
+    php artisan hotfix:status <<NAME>>
+    ```
+    Above command show status single hotfix By entering hotfix name (you can enter part of name and select one of founded hotfixes)
 
 ## Credits
 

@@ -11,7 +11,7 @@ class HotfixStatusCommand extends HotfixBaseCommand
 {
     public $signature = 'hotfix:status { name : Hotfix class name}';
 
-    public $description = 'Show Hotfix execution Status (Failed Or Success) By Still Unknown';
+    public $description = 'Show Hotfix execution Status (Failed Or Success Or Not Executed)';
 
     public function handle()
     {
