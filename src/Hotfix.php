@@ -7,12 +7,14 @@ use SamirSabiee\Hotfix\Models\Hotfix as HotfixModel;
 
 abstract class Hotfix implements IHotfix
 {
-    protected bool $transaction;
+    protected bool $dbTransaction;
     private HotfixRepository $hotfixRepository;
 
     public function __construct(HotfixRepository $hotfixRepository)
     {
-        $this->transaction = config('hotfix.database.transaction');
+        if (!isset($this->dbTransaction)) {
+            $this->dbTransaction = config('hotfix.database.transaction');
+        }
         $this->hotfixRepository = $hotfixRepository;
     }
 
@@ -21,7 +23,7 @@ abstract class Hotfix implements IHotfix
     public function run()
     {
         try {
-            if ($this->transaction) {
+            if ($this->dbTransaction) {
                 $this->runWithTransaction();
             } else {
                 $this->handle();
