@@ -1,5 +1,4 @@
 <?php
-use Illuminate\Support\Facades\Facade;
 
 return [
 
@@ -9,7 +8,7 @@ return [
 
         'transaction' => false,
 
-        'connection' => 'pgsql',
+        'connection' => config('database.default'),
 
         'table' => 'hotfixes'
 
