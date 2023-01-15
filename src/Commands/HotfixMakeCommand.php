@@ -13,8 +13,9 @@ class HotfixMakeCommand extends HotfixBaseCommand
     public function handle()
     {
         try {
+            $name = str_replace('\\', '/', $this->argument('name'));
             $outputFile = (new StubManager())
-                ->setName($this->argument('name'))->create();
+                ->setName($name)->create();
             $this->info('File Created At ' . $outputFile);
         } catch (\Error|\Exception $e) {
             $this->error($e->getMessage());
